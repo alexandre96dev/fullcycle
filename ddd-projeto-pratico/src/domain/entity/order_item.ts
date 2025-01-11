@@ -20,7 +20,6 @@ export default class OrderItem{
     orderItemTotal(): number {
         return this._price * this._quantity;
     }
-
     
     public get quantity() : number {
         return this._quantity;
