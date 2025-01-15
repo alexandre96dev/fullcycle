@@ -1,6 +1,9 @@
+import { AggregateRoot } from "../event/@shared/domain/aggregate-root";
+import ChangeCostumerAddressEvent from "../event/costumer/changed-costumer-address.event";
+import CostumerCreatedEvent from "../event/costumer/costumer-created.event";
 import Address from "./address";
 
-export default class Customer {
+export default class Customer extends AggregateRoot{
     private _id: string;
     private _name: string;
     private _address!: Address;
@@ -8,11 +11,11 @@ export default class Customer {
     private _rewardPoints: number = 0;
 
     constructor(id: string, name: string){
+        super();
         this._id = id;
         this._name = name;
         this.validate();
     }
-
     
     public get id() : string {
         return this._id
@@ -60,6 +63,18 @@ export default class Customer {
 
     changeAddress(address: Address){
         this._address = address;
+        this.addEvent(new ChangeCostumerAddressEvent({
+            id: this._id,
+            name: this._name,
+            address: address.toString(),
+        }));
+    }
+
+    create() {
+        this.addEvent(new CostumerCreatedEvent({
+            id: this._id,
+            name: this._name
+        }));
     }
 
     activate(){
