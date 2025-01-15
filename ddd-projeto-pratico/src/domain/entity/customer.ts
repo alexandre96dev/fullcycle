@@ -70,11 +70,11 @@ export default class Customer extends AggregateRoot{
         }));
     }
 
-    create() {
-        this.addEvent(new CostumerCreatedEvent({
-            id: this._id,
-            name: this._name
-        }));
+    static create(id: string, name: string) {
+        const customer = new Customer(id, name);
+        customer.addEvent(new CostumerCreatedEvent({id, name}));
+    
+        return customer
     }
 
     activate(){

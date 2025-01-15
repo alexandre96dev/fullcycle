@@ -99,9 +99,7 @@ describe("Customer unit tests", ()=> {
         const spyEventHandler1 = jest.spyOn(eventHandler1, "handle");
         const spyEventHandler2 = jest.spyOn(eventHandler2, "handle");
 
-        const customer = new Customer("123", "John");
-
-        customer.create();
+        const customer = Customer.create("1", "customer 1");
 
         eventDispatcher.register("CostumerCreatedEvent", eventHandler1);
         eventDispatcher.register("CostumerCreatedEvent", eventHandler2);
